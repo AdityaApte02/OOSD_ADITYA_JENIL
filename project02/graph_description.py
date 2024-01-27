@@ -61,7 +61,8 @@ class GraphDescription:
         # if the graph name is already present in the graph_des object
         if name in self.graph_des:
             # error
-            Error("Graph name already present").to_dict()
+            print(Error("Graph name already present").to_dict())
+            return
 
         class EdgeDescription:
             """
@@ -85,6 +86,19 @@ class GraphDescription:
 
         self.graph_des[name] = edge_descriptions
 
+
+    # print the graph_des object from name with edges
+    def print_graph_des(self, name):
+        """
+        Print the graph_des object from name with edges
+        """
+        print("graph name: ", name)
+        print("edges: ")
+        for edges in self.graph_des.values():
+            for edge in edges:
+                print(edge.from_node, edge.to_node, edge.cost)
+        print("end")
+
     def is_node_present(self, node):
         """
         Check if the inputted node is present in the graph_des object
@@ -103,32 +117,28 @@ class GraphDescription:
         incorporation = input(f"Do you want to incorporate {graph_to_add} into {graph_to_join}?:")
         if incorporation.lower() in ['y', 'yes']:
             if graph_to_add in self.graph_des and graph_to_join in self.graph_des:
-                graph_to_add_edges = self.graph_des[graph_to_add]
-                graph_to_join_edges = self.graph_des[graph_to_join]
+                # Get the nodes from both graphs
+                nodes_graph_to_add = set()
+                nodes_graph_to_join = set()
+                for edge in self.graph_des[graph_to_add]:
+                    nodes_graph_to_add.add(edge.from_node)
+                    nodes_graph_to_add.add(edge.to_node)
+                for edge in self.graph_des[graph_to_join]:
+                    nodes_graph_to_join.add(edge.from_node)
+                    nodes_graph_to_join.add(edge.to_node)
 
-                final_graph_edges = {}
+                # check disjoint
+                if not nodes_graph_to_add.isdisjoint(nodes_graph_to_join):
+                    # error
+                    print(Error("The graphs are not disjoint").to_dict())
+                else:
+                    # extend the edge
+                    self.graph_des[graph_to_join].extend(self.graph_des[graph_to_add])
+                    # delete the graph_to_add from the graph_des object
+                    del self.graph_des[graph_to_add]
 
-                # Iterating both graphs
-                for edge_list in [graph_to_add_edges, graph_to_join_edges]:
-                    for edge in edge_list:
-                        edge_tuple = (edge.from_node, edge.to_node)
-
-                        # If edge is in final graph, compare costs and keep the lower one
-                        if edge_tuple in final_graph_edges:
-                            if edge.cost < final_graph_edges[edge_tuple].cost:
-                                final_graph_edges[edge_tuple] = edge
-                        else:
-                            final_graph_edges[edge_tuple] = edge
-
-                # Update the original graph dictionary
-                self.graph_des[graph_to_add + graph_to_join] = list(final_graph_edges.values())
-                del self.graph_des[graph_to_add]
-                del self.graph_des[graph_to_join]
-
-                print(self.graph_des)
-                for edges in self.graph_des.values():
-                    for edge in edges:
-                        print(edge.from_node, edge.to_node, edge.cost)
+                    # print graph_des
+                    print(self.print_graph_des(graph_to_join))
             else:
                 # error
                 Error(f"{graph_to_add} or {graph_to_join} not found").to_dict()
@@ -215,17 +225,32 @@ test.execute_command("""{"tag":"graph",
                                 {"from_node":"b","to_node":"c", "cost":4},
                                 {"from_node":"a","to_node":"c", "cost":3}]}""")
 
+# test.execute_command("""{"tag":"graph",
+#                         "name":"graph3",
+#                         "edges":[{"from_node":"a","to_node":"b", "cost": 2},
+#                                 {"from_node":"b","to_node":"c", "cost":3},
+#                                 {"from_node":"c","to_node":"a", "cost":1},
+#                                 {"from_node":"d","to_node":"b", "cost":6}]}""")
+
+
+# test.execute_command('''{"tag":"graph",
+#                      "name":"graph2",
+#                      "edges":[{"from_node":"b","to_node":"a"},
+#                               {"from_node":"b","to_node":"c", "cost":13}]}''')
 
 test.execute_command('''{"tag":"graph",
                      "name":"graph2",
-                     "edges":[{"from_node":"b","to_node":"a"},
-                              {"from_node":"b","to_node":"c", "cost":13}]}''')
+                     "edges":[{"from_node":"d","to_node":"e"},
+                              {"from_node":"f","to_node":"e", "cost":13}]}''')
 
 # test the join method
 test.execute_command('{"tag":"join","add":"graph2","to":"graph1"}')
 
 # test the path method
 test.execute_command('{"tag":"path","from":"a","to":"c"}')
+
+# print the graph_des object
+# print(test.graph_des)
 
 # test
 # print(test.is_path_present("b","c"))
