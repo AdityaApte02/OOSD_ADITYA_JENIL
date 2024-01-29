@@ -1,0 +1,7 @@
+{
+    "tag": "cost",
+    "edges": [
+        {"from_node": "a", "to_node": "b", "cost": 2},
+        {"from_node": "a", "to_node": "b", "cost": 5}
+    ]
+}

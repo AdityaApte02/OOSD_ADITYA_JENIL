@@ -1,0 +1,13 @@
+[
+    {
+        "error": "Cost should be a positive real number"
+    },
+
+    {
+        "tag": "cost",
+        "edges": [
+            {"from_node": "a", "to_node": "b", "cost": 2.69},
+            {"from_node": "b", "to_node": "c", "cost": 4.0}
+        ]
+    }
+]

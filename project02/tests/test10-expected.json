@@ -1,0 +1,17 @@
+[
+    {
+        "error": "to_node is missing"
+    },
+
+    {
+        "error": "from_node is missing"
+    },
+
+    {
+        "error": "from_node is missing"
+    },
+
+    {
+        "error": "from_node and to_node cannot be same"
+    }
+]

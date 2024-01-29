@@ -1,0 +1,21 @@
+[
+
+    {
+        "tag":"graph",
+        "name":"graph1",
+        "edges":[
+                {"from_node":"a","to_node":"b", "cost": 2},
+                {"from_node":"b","to_node":"c", "cost":4},
+                {"from_node":"a","to_node":"c", "cost":3}
+        ]
+    },
+
+    {
+        "tag":"graph",
+        "name":"graph1",
+        "edges":[
+                {"from_node":"b","to_node":"a", "cost": 5}
+        ]
+    }
+
+]
