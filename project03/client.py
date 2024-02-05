@@ -1,19 +1,5 @@
 from graph_interface import GraphComponentInterface
 
-# TODO
-# in join, check low/high of both graphs DONE
-# add validations in creation of graph: node name and graph name should be at most 20 ASCII chars DONE
-# how to handle errors in add_edge_to_graph method DONE
-
-# error handling DONE
-# separate graph creation and edge addition DONE
-# remove cost interval and add low/high feature DONE
-# add function that returns nodes in graph service DONE
-# add function that returns edges in graph service DONE
-# in path query, find paths by graph name DONE
-# in path query, find min cost DONE
-# create graph return response ({ "low" : Cost,  "high" : Cost, "edges" : [ EdgeDescription,  ... ]}) DONE
-
 class Error(Exception):
     """
     Base class for exceptions in this module.
