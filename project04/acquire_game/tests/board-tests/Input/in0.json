@@ -1,0 +1,235 @@
+{
+  "request": "merging",
+  "row": "D",
+  "column": "4",
+  "label": "Continental",
+  "board": {
+    "tiles": [
+      {
+        "row": "B",
+        "column": "2"
+      },
+      {
+        "row": "C",
+        "column": "1"
+      },
+      {
+        "row": "D",
+        "column": "6"
+      },
+      {
+        "row": "D",
+        "column": "5"
+      },
+      {
+        "row": "C",
+        "column": "6"
+      },
+      {
+        "row": "C",
+        "column": "5"
+      },
+      {
+        "row": "C",
+        "column": "4"
+      },
+      {
+        "row": "B",
+        "column": "6"
+      },
+      {
+        "row": "B",
+        "column": "5"
+      },
+      {
+        "row": "B",
+        "column": "4"
+      },
+      {
+        "row": "A",
+        "column": "4"
+      },
+      {
+        "row": "A",
+        "column": "5"
+      },
+      {
+        "row": "A",
+        "column": "6"
+      },
+      {
+        "row": "D",
+        "column": "2"
+      },
+      {
+        "row": "D",
+        "column": "3"
+      },
+      {
+        "row": "E",
+        "column": "4"
+      },
+      {
+        "row": "E",
+        "column": "5"
+      },
+      {
+        "row": "E",
+        "column": "6"
+      },
+      {
+        "row": "F",
+        "column": "2"
+      },
+      {
+        "row": "F",
+        "column": "3"
+      },
+      {
+        "row": "F",
+        "column": "4"
+      },
+      {
+        "row": "F",
+        "column": "5"
+      },
+      {
+        "row": "F",
+        "column": "6"
+      },
+      {
+        "row": "G",
+        "column": "2"
+      },
+      {
+        "row": "G",
+        "column": "3"
+      },
+      {
+        "row": "G",
+        "column": "4"
+      },
+      {
+        "row": "G",
+        "column": "5"
+      },
+      {
+        "row": "G",
+        "column": "6"
+      }
+    ],
+    "hotels": [
+      {
+        "hotel": "American",
+        "tiles": [
+          {
+            "row": "D",
+            "column": "2"
+          },
+          {
+            "row": "D",
+            "column": "3"
+          }
+        ]
+      },
+      {
+        "hotel": "Continental",
+        "tiles": [
+          {
+            "row": "E",
+            "column": "4"
+          },
+          {
+            "row": "E",
+            "column": "5"
+          },
+          {
+            "row": "E",
+            "column": "6"
+          },
+          {
+            "row": "F",
+            "column": "2"
+          },
+          {
+            "row": "F",
+            "column": "3"
+          },
+          {
+            "row": "F",
+            "column": "4"
+          },
+          {
+            "row": "F",
+            "column": "5"
+          },
+          {
+            "row": "F",
+            "column": "6"
+          },
+          {
+            "row": "G",
+            "column": "2"
+          },
+          {
+            "row": "G",
+            "column": "3"
+          },
+          {
+            "row": "G",
+            "column": "4"
+          },
+          {
+            "row": "G",
+            "column": "5"
+          },
+          {
+            "row": "G",
+            "column": "6"
+          }
+        ]
+      },
+      {
+        "hotel": "Festival",
+        "tiles": [
+          {
+            "row": "C",
+            "column": "6"
+          },
+          {
+            "row": "C",
+            "column": "5"
+          },
+          {
+            "row": "C",
+            "column": "4"
+          },
+          {
+            "row": "B",
+            "column": "6"
+          },
+          {
+            "row": "B",
+            "column": "5"
+          },
+          {
+            "row": "B",
+            "column": "4"
+          },
+          {
+            "row": "A",
+            "column": "4"
+          },
+          {
+            "row": "A",
+            "column": "5"
+          },
+          {
+            "row": "A",
+            "column": "6"
+          }
+        ]
+      }
+    ]
+  }
+}
