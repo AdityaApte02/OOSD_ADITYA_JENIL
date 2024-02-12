@@ -141,9 +141,7 @@ class Acquire:
                         return founding_response
                     
 
-        return {
-            Error('Invalid Board!').to_dict()
-        }      
+        return Error('Invalid Board!').to_dict()   
 
     def handle_singleton(self, request, boardMatrix):
         row = ord(request['row']) - 65
@@ -210,9 +208,7 @@ class Acquire:
                 boardMatrix[int(tile.row)][int(tile.column)] = hotel
 
             else:
-                return {
-                    Error('No hotel found').to_dict()
-                }
+                return Error('No hotel found').to_dict()
         printBoard(boardMatrix)
         return {"growing":hotel}
 
@@ -222,9 +218,7 @@ class Acquire:
         col = int(request['column']) - 1
         num_of_hotels_placed = len(request['board']['hotels'])
         if num_of_hotels_placed >= 7:
-            return {
-                Error('No Hotel chains remaining!').to_dict()
-            }
+            return Error('No Hotel chains remaining!').to_dict()
         if boardMatrix[row][col] != '0':
             return {
                 "impossible": 'A Tile cannot be placed at the desired location'
@@ -236,9 +230,7 @@ class Acquire:
             hotel_label = request['label']
             for hotel in request['board']['hotels']:
                 if hotel['hotel'] == hotel_label:
-                    return {
-                        Error('A hotel with that label already exists').to_dict()
-                    }
+                    return Error('A hotel with that label already exists').to_dict()
             for r,c in offsets:
                 if row+r >= 0 and row+r < len(boardMatrix) and col+c >= 0 and col+c < len(boardMatrix[0]):
                     if len(boardMatrix[row+r][col+c]) > 1 and boardMatrix[row+r][col+c] != first_other_hotel_found and first_other_hotel_found != '':
@@ -276,6 +268,8 @@ class Acquire:
         row = ord(request['row']) - 65
         col = int(request['column']) - 1
         merging_flag  = True
+        if request["request"] == "merging" and (request["label"] == "" or request["label"] is None):
+            return Error("Hotel label should be provided.").to_dict()
         if boardMatrix[row][col] != '0':
             merging_flag = False
             return {
