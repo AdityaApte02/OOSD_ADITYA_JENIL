@@ -1,0 +1,80 @@
+{
+  "board": {
+      "tiles": [
+          {"row": "B", "column": "2"},
+          {"row": "C", "column": "1"},
+          {"row": "C", "column": "4"},
+          {"row": "C", "column": "5"},
+          {"row": "C", "column": "6"},
+          {"row": "D", "column": "1"},
+          {"row": "D", "column": "2"},
+          {"row": "D", "column": "3"},
+          {"row": "D", "column": "4"},
+          {"row": "E", "column": "4"},
+          {"row": "E", "column": "5"},
+          {"row": "E", "column": "6"},
+          {"row": "F", "column": "4"}
+      ],
+      "hotels": [
+          {
+              "hotel": "Continental",
+              "tiles": [
+                  {"row": "C", "column": "4"},
+                  {"row": "C", "column": "5"},
+                  {"row": "C", "column": "6"},
+                  {"row": "D", "column": "1"},
+                  {"row": "D", "column": "2"},
+                  {"row": "D", "column": "3"},
+                  {"row": "D", "column": "4"},
+                  {"row": "E", "column": "4"},
+                  {"row": "E", "column": "5"},
+                  {"row": "E", "column": "6"},
+                  {"row": "F", "column": "4"}
+              ]
+          }
+      ]
+  },
+  "players": [
+      {
+          "name": "Aditya",
+          "cash": 9000,
+          "tiles": [
+              {"row": "A", "column": "3"},
+              {"row": "F", "column": "3"},
+              {"row": "E", "column": "1"}
+          ],
+          "shares": [
+              {"share": "American", "count": 3},
+              {"share": "Festival", "count": 2}
+          ]
+      },
+      {
+          "name": "Honey",
+          "cash": 10500,
+          "tiles": [
+              {"row": "I", "column": "3"},
+              {"row": "I", "column": "4"},
+              {"row": "H", "column": "3"},
+              {"row": "G", "column": "0"}
+          ],
+          "shares": [
+              {"share": "American", "count": 3},
+              {"share": "Festival", "count": 2}
+          ]
+      },
+      {
+          "name": "Mayur",
+          "cash": 8000,
+          "tiles": [
+              {"row": "I", "column": "2"},
+              {"row": "I", "column": "1"},
+              {"row": "H", "column": "2"},
+              {"row": "G", "column": "1"}
+          ],
+          "shares": [
+              {"share": "American", "count": 3},
+              {"share": "Festival", "count": 4}
+          ]
+      }
+  ]
+}
