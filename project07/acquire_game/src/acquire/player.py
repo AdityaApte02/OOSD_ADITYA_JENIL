@@ -8,14 +8,9 @@ class Player(ABC):
         self.shares = []
         
 
-
-
 class HumanPlayer(Player):
     def __init__(self, name):
         super().__init__(name)
-
-
-
 
 class AIPlayer(Player):
     def __init__(self, name):

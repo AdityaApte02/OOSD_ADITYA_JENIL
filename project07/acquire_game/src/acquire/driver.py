@@ -1,9 +1,9 @@
 import os
 import json
 import sys
-from acquire import Acquire
-from error import Error
-from admin import Admin
+from acquire.acquire import Acquire
+from acquire.error import Error
+from acquire.admin import Admin
 
 def readJsonRequest(filepath):
     try:

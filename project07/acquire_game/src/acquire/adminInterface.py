@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
 class AcquireGame(ABC):
-
     @abstractmethod
     def __init__(self):
         # Initialize game state variables

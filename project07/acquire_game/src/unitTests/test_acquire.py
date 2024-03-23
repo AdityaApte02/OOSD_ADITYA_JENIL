@@ -1,10 +1,11 @@
 import unittest
 from unittest.mock import patch
-from acquire import Acquire
-from error import Error
-from acquire import Acquire
-from board import Board
-from player import HumanPlayer
+import sys
+sys.path.append(r'C:\Users\Aditya\OOSD_Pair1\project07\acquire_game\src')
+from acquire.acquire import Acquire
+from acquire.error import Error
+from acquire.board import Board
+from acquire.player import HumanPlayer
 
 def create_test_boardMatrix(boardObj):
     board = Board()

@@ -1,9 +1,9 @@
-from adminInterface import AcquireGame
-from acquire import Acquire
-from banker import Banker
-from error import Error
-from player import HumanPlayer
-import utils
+from acquire.adminInterface import AcquireGame
+from acquire.acquire import Acquire
+from acquire.banker import Banker
+from acquire.error import Error
+from acquire.player import HumanPlayer
+import acquire.utils as utils
 
 
 class Admin(AcquireGame):

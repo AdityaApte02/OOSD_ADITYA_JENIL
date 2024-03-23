@@ -1,9 +1,8 @@
 import unittest
-from admin import Admin
-from acquire import Acquire
-from error import Error
-from acquire import Acquire
-from board import Board
+from acquire.admin import Admin
+from acquire.acquire import Acquire
+from acquire.error import Error
+from acquire.board import Board
 import json
 import os
 

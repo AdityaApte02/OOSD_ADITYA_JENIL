@@ -1,5 +1,7 @@
+import sys
+sys.path.append(r'C:\Users\Aditya\OOSD_Pair1\project07\acquire_game\src')
 import unittest
-from utils import matrix_to_object
+from  acquire.utils import matrix_to_object
 
 
 class TestUtils(unittest.TestCase):

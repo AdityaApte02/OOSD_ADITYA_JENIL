@@ -1,7 +1,7 @@
-from board import Board
-from tile import Tile
-from error import Error
-from player import HumanPlayer
+from acquire.board import Board
+from acquire.tile import Tile
+from acquire.error import Error
+from acquire.player import HumanPlayer
 
 def printBoard(board):
     print("================================")

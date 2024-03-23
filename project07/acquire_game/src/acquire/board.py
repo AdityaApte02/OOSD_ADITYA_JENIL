@@ -1,5 +1,5 @@
-from tile import Tile
-from hotel import Hotel
+from acquire.tile import Tile
+from acquire.hotel import Hotel
 
 class Board:
     def __init__(self):
