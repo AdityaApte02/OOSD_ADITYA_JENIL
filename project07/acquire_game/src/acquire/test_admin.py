@@ -697,7 +697,7 @@ class TestAdmin(unittest.TestCase):
             },
         }
         expected_output = {
-            "error": "The current player already has 25 shares of a American"
+            "error": "The current player already has 25 shares of American"
         }
         result, output = self.admin.buy(request)
         self.assertFalse(result)

@@ -32,7 +32,10 @@ class Test(unittest.TestCase):
                 request = readJsonRequest(os.path.join(self.folder_path, file))
                 if type(request) != Error:
                     admin = Admin()
-                    if(request["request"] == "setup"):
+                    if (request.get("request") == None):
+                        is_valid = False
+                        response = Error("Invalid request").to_dict()
+                    elif(request["request"] == "setup"):
                         is_valid, response = admin.setUp(request)
                     elif (request["request"] == "place"):
                         is_valid, response = admin.place(request)

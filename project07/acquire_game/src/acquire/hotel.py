@@ -2,7 +2,7 @@ from tile import Tile
 
 class Hotel:
     def __init__(self, label, tiles=[]):
-        self.hotel = self.get_label_from_color(label)
+        self.label = self.get_label_from_color(label)
         self.tiles = tiles
 
     def get_label_from_color(self, label):

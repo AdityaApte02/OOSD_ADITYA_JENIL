@@ -49,18 +49,19 @@ class AcquireTest(unittest.TestCase):
         self.acquire.state['board'].tiles = board['tiles']
         self.acquire.state['board'].hotels = board['hotels']
         state1 = {
-                "board": self.acquire.state['board'],
-                "players": [
-                    HumanPlayer("Aditya", -5000, [
-                            {"row": "A", "column": "3"},
-                            {"row": "F", "column": "3"},
-                            {"row": "D", "column": "3"},
-                            {"row": "D", "column": "4"},
-                        ], [
-                            {"share": "American", "count": 3},
-                        ])
-                ],
-            }
+            "board": self.acquire.state['board'],
+            "players": [HumanPlayer("Aditya")]
+        }
+        state1['players'][0].cash = -5000
+        state1['players'][0].tiles = [
+            {"row": "A", "column": "3"},
+            {"row": "F", "column": "3"},
+            {"row": "D", "column": "3"},
+            {"row": "D", "column": "4"}
+        ]
+        state1['players'][0].shares = [
+            {"share": "American", "count": 3}
+        ]
         
     
         expected_output = {'error':'The current player has negative cash'}
@@ -76,70 +77,54 @@ class AcquireTest(unittest.TestCase):
         expected_output = {'error':'The players list is empty'}
         result, output = self.acquire.validate_state(state2)
         self.assertEqual(output, expected_output)
-        
         state3 = {
             "board": self.acquire.state['board'],
-                "players": [
-                    HumanPlayer("Aditya", 5000, [
-                            {"row": "A", "column": "3"},
-                            {"row": "F", "column": "3"},
-                            {"row": "D", "column": "3"},
-                            {"row": "D", "column": "4"},
-                            {"row": "G", "column": "8"},
-                            {"row": "H", "column": "2"},
-                            {"row": "F", "column": "10"},
-                        ], [
-                            {"share": "American", "count": 3},
-                        ])
-                ],
+            "players": [HumanPlayer("Aditya")]
         }
+        state3['players'][0].cash = 5000
+        state3['players'][0].tiles = [
+            {"row": "A", "column": "3"},
+            {"row": "F", "column": "3"},
+            {"row": "D", "column": "3"},
+            {"row": "D", "column": "4"},
+            {"row": "G", "column": "8"},
+            {"row": "H", "column": "2"},
+            {"row": "F", "column": "10"},
+        ]
+        state3['players'][0].shares = [
+            {"share": "American", "count": 3}
+        ]
+
         expected_output = {'error':'Player ' + state3['players'][0].name+' has more than 6 tiles'}
         result, output = self.acquire.validate_state(state3)
         self.assertEqual(output, expected_output)
         
-        
         state4 = {
             "board": self.acquire.state['board'],
-                "players": [
-                    HumanPlayer("Aditya", 5000, [
-                            {"row": "A", "column": "3"},
-                            {"row": "F", "column": "3"},
-                            {"row": "D", "column": "3"},
-                            {"row": "D", "column": "4"},
-                            {"row": "G", "column": "8"}
-                        ], [
-                            {"share": "American", "count": 3},
-                        ]),
-                    
-                    HumanPlayer("Aditya", 6000, [
-                        {"row":"F", "column":"4"},
-                        {"row":"F", "column":"7"},
-                        {"row":"F", "column":"9"},
-                        {"row":"F", "column":"11"}
-                    ], [
-                        {"share": "Sackson", "count": 3}
-                    ])
-                ],
+            "players": [HumanPlayer("Aditya"), HumanPlayer("Aditya")]
         }
         expected_output = {'error':'The players name are not unique'}
         result, output = self.acquire.validate_state(state4)
         self.assertEqual(output, expected_output)
-        
+
         state5 = {
             "board": self.acquire.state['board'],
-                "players": [
-                    HumanPlayer("Aditya", 5000, [
-                            {"row": "A", "column": "3"},
-                            {"row": "F", "column": "3"},
-                            {"row": "D", "column": "3"},
-                            {"row": "D", "column": "4"},
-                            {"row": "G", "column": "8"}
-                           
-                        ], [
-                            {"share": "American", "count": 28},
-                        ])
-                ],
+            "players": [HumanPlayer("Aditya")]
         }
+        state5['players'][0].cash = 5000
+        state5['players'][0].tiles = [
+            {"row": "A", "column": "3"},
+            {"row": "F", "column": "3"},
+            {"row": "D", "column": "3"},
+            {"row": "D", "column": "4"},
+            {"row": "G", "column": "8"},
+            {"row": "H", "column": "2"},
+        ]
+        state5['players'][0].shares = [
+            {"share": "American", "count": 33}
+        ]
+        
+        
         expected_output = {'error':'The current player already has 25 shares of American'}
         result, output = self.acquire.validate_state(state5)
         self.assertEqual(output, expected_output)
@@ -147,19 +132,20 @@ class AcquireTest(unittest.TestCase):
         
         state6 = {
             "board": self.acquire.state['board'],
-                "players": [
-                    HumanPlayer("Aditya", 5000, [
-                            {"row": "A", "column": "3"},
-                            {"row": "F", "column": "3"},
-                            {"row": "D", "column": "3"},
-                            {"row": "D", "column": "4"},
-                            {"row": "G", "column": "8"}
-                           
-                        ], [
-                            {"share": "Davis", "count": 21},
-                        ])
-                ],
+            "players": [HumanPlayer("Aditya")]
         }
+        state6['players'][0].cash = 5000
+        state6['players'][0].tiles = [
+            {"row": "A", "column": "3"},
+            {"row": "F", "column": "3"},
+            {"row": "D", "column": "3"},
+            {"row": "D", "column": "4"},
+            {"row": "G", "column": "8"},
+            {"row": "H", "column": "2"},
+        ]
+        state6['players'][0].shares = [
+            {"share": "Davis", "count": 3}
+        ]
         expected_output = {'error':'The current player shares label Davis is not valid'}
         result, output = self.acquire.validate_state(state6)
         self.assertEqual(output, expected_output)
@@ -167,27 +153,21 @@ class AcquireTest(unittest.TestCase):
         
         state7 = {
             "board": self.acquire.state['board'],
-                "players": [
-                    HumanPlayer("Aditya", 5000, [
-                            {"row": "A", "column": "3"},
-                            {"row": "F", "column": "3"},
-                            {"row": "G", "column": "8"},
-                            {"row": "D", "column": "4"},
-                            {"row": "G", "column": "8"}
-                        ], [
-                            {"share": "American", "count": 3},
-                        ]),
-                    
-                    HumanPlayer("Mayur", 6000, [
-                        {"row":"F", "column":"4"},
-                        {"row":"D", "column":"9"},
-                        
-                    ], [
-                        {"share": "Sackson", "count": 3}
-                    ])
-                ],
+            "players": [HumanPlayer("Aditya")]
         }
-        expected_output = {'error':'Tile '+str(state7['players'][0].tiles[2]) +' is not unique for current player'}
+        state7['players'][0].cash = 5000
+        state7['players'][0].tiles = [
+            {"row": "A", "column": "3"},
+            {"row": "F", "column": "3"},
+            {"row": "G", "column": "8"},
+            {"row": "G", "column": "8"},
+            {"row": "H", "column": "2"},
+            {"row": "F", "column": "10"},
+        ]
+        state7['players'][0].shares = [
+            {"share": "American", "count": 3}
+        ]
+        expected_output = {'error':"Tile {'row': 'G', 'column': '8'} is not unique for current player"}
         result, output = self.acquire.validate_state(state7)
         self.assertEqual(output, expected_output)
         
@@ -201,61 +181,26 @@ class AcquireTest(unittest.TestCase):
                 }
         self.acquire.state['board'].tiles = board['tiles']
         self.acquire.state['board'].hotels = board['hotels']
+
         state8 = {
             "board": self.acquire.state['board'],
-                "players": [
-                    HumanPlayer("Aditya", 5000, [
-                            {"row": "A", "column": "3"},
-                            {"row": "F", "column": "3"},
-                            {"row": "D", "column": "3"},
-                            {"row": "D", "column": "4"},
-                            {"row": "G", "column": "8"}
-                           
-                        ], [
-                            {"share": "American", "count": 21},
-                        ])
-                ]
+            "players": [HumanPlayer("Aditya")]
         }
+        state8['players'][0].cash = 5000
+        state8['players'][0].tiles = [
+            {"row": "A", "column": "3"},
+            {"row": "F", "column": "3"},
+            {"row": "G", "column": "8"},
+            {"row": "H", "column": "2"},
+            {"row": "F", "column": "10"},
+        ]
+        state8['players'][0].shares = [
+            {"share": "American", "count": 3}
+        ]
         expected_output = {'error':'The player already has a tile in the board'}
         result, output = self.acquire.validate_state(state8)
         self.assertEqual(output, expected_output)
         
-        
-        board = {
-                    "tiles": [
-                        {"row":"G", "column":"8"},
-                        {"row":"G", "column":"9"}
-                    ],
-                    "hotels": [
-                        {
-                            "hotel":"American",
-                            "tiles":[
-                                 {"row":"G", "column":"8"},
-                                 {"row":"G", "column":"9"}
-                            ]
-                        }
-                    ],
-                }
-        self.acquire.state['board'].tiles = board['tiles']
-        self.acquire.state['board'].hotels = board['hotels']
-        state9 = {
-             "board": self.acquire.state['board'],
-                "players": [
-                    HumanPlayer("Aditya", 5000, [
-                            {"row": "A", "column": "3"},
-                            {"row": "F", "column": "3"},
-                            {"row": "D", "column": "3"},
-                            {"row": "D", "column": "4"},
-                            {"row": "G", "column": "8"}
-                           
-                        ], [
-                            {"share": "American", "count": 21},
-                        ])
-                ]
-        }
-        expected_output = {'error':'The player already has a tile in the board'}
-        result, output = self.acquire.validate_state(state8)
-        self.assertEqual(output, expected_output)
 
     def test_handle_query(self):
         request = {

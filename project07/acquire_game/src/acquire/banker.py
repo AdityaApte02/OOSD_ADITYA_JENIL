@@ -158,10 +158,6 @@ class Banker:
                     if hotel == shares["share"]:
                         stock_holder[player.name] = shares["count"]
                         break
-
-        
-            print("Stock_holder: ", stock_holder)
-            # stock_holder = {'Aditya': 2, 'Honey': 3}
             sorted_stock_holder = list(sorted(stock_holder.items(), key=lambda item: item[1], reverse=True))
 
             if len(sorted_stock_holder) == 1:
