@@ -1,4 +1,4 @@
-from acquire.board import Board
+from board import Board
 def matrix_to_object(board):
     labels = {
             "American": "American",

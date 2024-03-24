@@ -1,7 +1,7 @@
 import sys
-sys.path.append(r'C:\Users\Aditya\OOSD_Pair1\project07\acquire_game\src')
+sys.path.append("..")
 import unittest
-from  acquire.error import Error
+from error import Error
 
 class TestError(unittest.TestCase):
     def test_error_message(self):

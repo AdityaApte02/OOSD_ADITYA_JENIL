@@ -1,8 +1,8 @@
 import sys
-sys.path.append(r'C:\Users\Aditya\OOSD_Pair1\project07\acquire_game\src')
+sys.path.append("..")
 import unittest
-from  acquire.banker import Banker
-from  acquire.player import HumanPlayer
+from banker import Banker
+from player import HumanPlayer
 
 class TestBanker(unittest.TestCase):
     def setUp(self):

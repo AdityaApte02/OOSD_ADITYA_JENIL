@@ -1,12 +1,12 @@
 # test file to test the board representation
 # import required libraries
 import sys
-sys.path.append(r'C:\Users\Aditya\OOSD_Pair1\project07\acquire_game\src')
+sys.path.append("..")
 from unittest import TestCase, main
 
 # import acquire class from acquire module
-from acquire.acquire import Acquire
-from  acquire.board import Board
+from acquire import Acquire
+from board import Board
 
 class TestBoard(TestCase):
     def _set_up(self, request):

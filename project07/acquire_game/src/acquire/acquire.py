@@ -1,7 +1,8 @@
-from acquire.board import Board
-from acquire.tile import Tile
-from acquire.error import Error
-from acquire.player import HumanPlayer
+from error import Error
+from player import HumanPlayer
+from board import Board
+from tile import Tile
+
 
 def printBoard(board):
     print("================================")
@@ -16,7 +17,7 @@ class Acquire:
     def set_state(self, state, flag=False):
         if state['board'] == {}:
             return False, Error('Board is Empty').to_dict()
-        if 'tiles' not in state['board'].keys() or 'hotels' not in state['board'].keys() or 'players' not in state.keys():
+        if 'tiles' not in state['board'].keys() or 'hotels' not in state['board'].keys():
             return False, Error('Invalid key found in the request state').to_dict()
         self.state["board"].tiles = state["board"]["tiles"]
         self.state["board"].hotels = state["board"]["hotels"]
@@ -205,7 +206,7 @@ class Acquire:
                         Error(f'The current player already has 25 shares of {shares["share"]}').to_dict(),
                     )
                 # Check if shares label is valid
-                if shares["share"] not in [
+                if "share" in shares and shares["share"] not in [
                     "Imperial",
                     "Continental",
                     "Tower",
@@ -296,35 +297,38 @@ class Acquire:
         return True
 
     def handle_query(self, request, boardMatrix):
+        returnMsg = ''
+        print(request["row"], request["column"])
         if boardMatrix[ord(request["row"]) - 65][int(request["column"]) - 1] != "0":
             return False, Error("A tile already exists at the desired location").to_dict()
         res = self.handle_singleton(request, boardMatrix)
         if type(res) == dict and "singleton" in res:
-            return res
+            returnMsg = res
         else:
             merging_res = self.handle_merging(request, boardMatrix)
             if type(merging_res) == dict and "acquirer" in merging_res:      
-                return merging_res
+                returnMsg = merging_res
             else:
                 growing_resonse = self.handle_growing(request, boardMatrix)
                 if type(growing_resonse) == dict and "growing" in growing_resonse: 
-                    return growing_resonse
+                    returnMsg = growing_resonse
                 else:
                     if "hotel" in request.keys():
                         founding_response = self.handle_founding(request, boardMatrix)
                         if type(founding_response) and "founding" in founding_response:
-                            return founding_response
-        return Error("Invalid Board!")
+                            returnMsg = founding_response
+                            
+        print('returnMsg',returnMsg)
+        return returnMsg
+        # return Error("Invalid Board!")
 
     def handle_singleton(self, request, boardMatrix):
-        printBoard(boardMatrix)
         row = ord(request["row"]) - 65
         col = int(request["column"]) - 1
         singleTonFlag = True
         if boardMatrix[row][col] != "0":
             singleTonFlag = False
             return Error("A Tile cannot be placed at the desired location")
-        
         offsets = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         if len(request["board"].hotels) < 7:
             for r, c in offsets:
@@ -372,7 +376,8 @@ class Acquire:
             ):
                 if len(boardMatrix[row + r][col + c]) > 1:
                     if boardMatrix[row + r][col + c] != hotel and hotel != "":
-                        return Error("A merger would take place")
+                        # return Error("A merger would take place")
+                        boardMatrix[row][col] = hotel
                     hotel = boardMatrix[row + r][col + c]
         def dfs(x, y):
             visited.add((x, y))
@@ -491,6 +496,9 @@ class Acquire:
                             if len_of_hotel > max_length:
                                 max_length = len_of_hotel
                                 acquirer = label
+                                
+        print("acquired_hotels", acquired_hotels)
+        print("acquirer",acquirer)
         if acquirer == "":
             merging_flag = False
             return Error("No hotels to merge")
@@ -499,12 +507,8 @@ class Acquire:
             return Error("Only one hotel to merge")
         else:
             len_of_acquirer = acquired_hotels[acquirer]
-            if len_of_acquirer >= 11:
-                return Error("Hotel has chain length of atleast 11")
-            del acquired_hotels[acquirer]
-
             for hotel_name, len_of_hotel in acquired_hotels.items():
-                if len_of_hotel >= 11:
+                if len_of_hotel >= 11 and hotel_name != acquirer:
                     return Error("Hotel has chain length of atleast 11")
                 else:
                     if len_of_acquirer + len_of_hotel <= 41:

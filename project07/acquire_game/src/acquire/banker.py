@@ -1,6 +1,4 @@
 import random
-
-
 class Banker:
     def __init__(self):
         self.remaining_tiles = []
@@ -101,7 +99,6 @@ class Banker:
         ]
 
         random.shuffle(all_tiles)
-
         for _ in range(6):
             for player in players:
                 player.tiles.append(all_tiles.pop())
@@ -155,7 +152,7 @@ class Banker:
             stock_holder = {}
             for player in players:
                 for shares in player.shares:
-                    if hotel == shares["share"]:
+                    if "share" in shares and hotel == shares["share"]:
                         stock_holder[player.name] = shares["count"]
                         break
             sorted_stock_holder = list(sorted(stock_holder.items(), key=lambda item: item[1], reverse=True))
@@ -204,5 +201,7 @@ class Banker:
     def give_new_tile(self):
         # This is to be called separately in done method
         
+        if len(self.remaining_tiles) == 0:
+            exit()
         tile = self.remaining_tiles.pop(0)
         return tile

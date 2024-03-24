@@ -1,10 +1,10 @@
 import sys
-sys.path.append(r'C:\Users\Aditya\OOSD_Pair1\project07\acquire_game\src')
+sys.path.append("..")
 import unittest
 from unittest.mock import patch
-from acquire.admin import Admin
-from acquire.acquire import Acquire
-from acquire.board import Board
+from admin import Admin
+from acquire import Acquire
+from board import Board
 
 
 class TestAdmin(unittest.TestCase):

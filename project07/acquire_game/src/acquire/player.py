@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-
 class Player(ABC):
     def __init__(self, name, cash=6000):
         self.name = name

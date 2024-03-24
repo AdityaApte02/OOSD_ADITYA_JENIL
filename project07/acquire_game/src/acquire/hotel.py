@@ -1,4 +1,4 @@
-from acquire.tile import Tile
+from tile import Tile
 
 class Hotel:
     def __init__(self, label, tiles=[]):
