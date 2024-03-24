@@ -1,3 +1,4 @@
+import sys
 from adminInterface import AcquireGame
 from acquire import Acquire
 from banker import Banker
@@ -7,6 +8,8 @@ import utils as utils
 from tile import Tile
 from board import Board
 from tabulate import tabulate
+import traceback 
+
 
 class Admin(AcquireGame):
     def __init__(self):
@@ -137,6 +140,7 @@ class Admin(AcquireGame):
 
     def place(self, row, column):
         hotel = self.getFirstAvailableHotel()
+        print("hotel",hotel)
         state_instance = self.acquire.state
         board_instance = self.acquire.state["board"]
         # todo: iterate in tile objects
@@ -156,8 +160,6 @@ class Admin(AcquireGame):
                 break
         if flag == False:
             return False, Error("The player does not have the requested tile").to_dict()
-
-        # is_valid, message = self.acquire.validate_state(state_instance)
         is_valid = True
         if is_valid:
             try:
@@ -179,6 +181,8 @@ class Admin(AcquireGame):
                     self.update_banker_records(row, column, response, new_board)
                     if type(response) == dict and "acquirer" in response:
                         acquired = response["acquired"]
+                        if response["acquirer"] in acquired:
+                            acquired.remove(response["acquirer"])
                         self.banker.add_hotels_from_acquired(acquired)
                         self.banker.distribute_bonuses(self.acquire.state["players"], response.get("acquired_hotels_dict"))
 
@@ -188,7 +192,8 @@ class Admin(AcquireGame):
                     return False, response.to_dict()
 
             except Exception as e:
-                print("Exception", e)
+                traceback.print_exception(*sys.exc_info())
+                print("Exception::", e)
                 return False, Error(str(e)).to_dict()
         else:
             return False, "State is Valid"
@@ -205,12 +210,6 @@ class Admin(AcquireGame):
             self.banker.update_remaining_hotels(request["state"]["board"]["hotels"])
             self.acquire.set_state(request["state"], True)
 
-            # print(len(self.acquire.state["players"][0].tiles))
-            # new_tile = self.banker.give_new_tile()
-            # print(new_tile)
-            # self.acquire.state["players"][0].tiles.append(new_tile)
-            # print(len(self.acquire.state["players"][0].tiles))
-
             player = self.acquire.state["players"].pop(0)
             print("Player", player.__dict__)
             self.acquire.state["players"].append(player)
@@ -218,238 +217,3 @@ class Admin(AcquireGame):
         
         return True, self.print_state(self.acquire.state)
 
-
-if __name__ == "__main__":
-    admin = Admin()
-    res = admin.setUp({"request": "setup", "players": ["mayur", "aditya", "honey"]})
-    if type(res) != Error:
-        res = admin.place(
-            {
-                "request": "place",
-                "row": "X",
-                "column": admin.acquire.state["players"][0].tiles[1]["column"],
-            },
-            False,
-        )
-
-        print(res)
-
-        res = admin.done()
-        print(res)
-
-        res = admin.place(
-            {
-                "request": "place",
-                "row": admin.acquire.state["players"][0].tiles[1]["row"],
-                "column": admin.acquire.state["players"][0].tiles[1]["column"],
-            },
-            False,
-        )
-
-        res = admin.done()
-        print(res)
-
-    # res  = admin.place({"request":"place",
-    #     "row":"D",
-    #     "column":"4",
-    #     "state": {
-    #         "board": {
-    #             "tiles": [
-    #                 {"row": "A", "column": "1"},
-    #                 {"row": "A", "column": "2"},
-    #                 {"row": "C", "column": "3"},
-    #                 {"row": "C", "column": "4"},
-    #                 {"row" : "D", "column": "7"}
-    #             ],
-    #             "hotels": [
-    #                 {
-    #                     "hotel": "American",
-    #                     "tiles": [
-    #                         {"row": "C", "column": "3"},
-    #                         {"row": "C", "column": "4"},
-    #                     ],
-    #                 }
-    #             ],
-    #         },
-    #         "players": [
-    #             {
-    #                 "player": "Aditya",
-    #                 "cash": 5000,
-    #                 "tiles": [
-    #                     {"row": "A", "column": "3"},
-    #                     {"row": "F", "column": "3"},
-    #                     {"row": "D", "column": "3"},
-    #                     {"row": "D", "column": "4"},
-    #                 ],
-    #                 "shares": [
-    #                     {"share": "American", "count": 3},
-    #                 ],
-    #             },
-
-    #             {
-    #                 "player": "Mayur",
-    #                 "cash": 5000,
-    #                 "tiles": [
-    #                     {"row": "C", "column": "7"},
-    #                     {"row": "E", "column": "10"},
-    #                     {"row": "G", "column": "1"},
-    #                     {"row": "I", "column": "11"},
-    #                 ],
-    #                 "shares": [
-    #                     {"share": "American", "count": 2},
-    #                 ],
-    #             }
-    #         ],
-    #         }})
-
-    # res = admin.done({
-    #     "request":"done",
-    #     "state": {
-    #         "board": {
-    #             "tiles": [
-    #                 {"row": "A", "column": "1"},
-    #                 {"row": "A", "column": "2"},
-    #                 {"row": "C", "column": "3"},
-    #                 {"row": "C", "column": "4"},
-    #                 {"row" : "D", "column": "7"}
-    #             ],
-    #             "hotels": [
-    #                 {
-    #                     "hotel": "American",
-    #                     "tiles": [
-    #                         {"row": "C", "column": "3"},
-    #                         {"row": "C", "column": "4"},
-    #                     ],
-    #                 }
-    #             ],
-    #         },
-    #         "players": [
-    #             {
-    #                 "player": "Aditya",
-    #                 "cash": 5000,
-    #                 "tiles": [
-    #                     {"row": "A", "column": "3"},
-    #                     {"row": "F", "column": "3"},
-    #                     {"row": "D", "column": "3"},
-    #                     {"row": "D", "column": "4"},
-    #                 ],
-    #                 "shares": [
-    #                     {"share": "American", "count": 3},
-    #                 ],
-    #             },
-
-    #             {
-    #                 "player": "Mayur",
-    #                 "cash": 5000,
-    #                 "tiles": [
-    #                     {"row": "C", "column": "7"},
-    #                     {"row": "E", "column": "10"},
-    #                     {"row": "G", "column": "1"},
-    #                     {"row": "I", "column": "11"},
-    #                 ],
-    #                 "shares": [
-    #                     {"share": "American", "count": 2},
-    #                 ],
-    #             }
-    #         ],
-    #         }
-
-    # })
-    # print(res)
-
-    # res  = admin.done({
-    #     "request":"done",
-    #     "state": {
-    #         "board": {
-    #             "tiles": [
-    #                 {"row": "A", "column": "1"},
-    #                 {"row": "A", "column": "2"},
-    #                 {"row": "C", "column": "3"},
-    #                 {"row": "C", "column": "4"},
-    #             ],
-    #             "hotels": [
-    #                 {
-    #                     "hotel": "American",
-    #                     "tiles": [
-    #                         {"row": "C", "column": "3"},
-    #                         {"row": "C", "column": "4"},
-    #                     ],
-    #                 }
-    #             ],
-    #         },
-    #         "players": [
-    #             {
-    #                 "player": "Aditya",
-    #                 "cash": 5000,
-    #                 "tiles": [
-    #                     {"row": "A", "column": "3"},
-    #                     {"row": "F", "column": "3"},
-    #                     {"row": "D", "column": "3"},
-    #                     {"row": "D", "column": "4"},
-    #                 ],
-    #                 "shares": [
-    #                     {"share": "American", "count": 3},
-    #                 ],
-    #             },
-
-    #             {
-    #                 "player": "Mayur",
-    #                 "cash": 5000,
-    #                 "tiles": [
-    #                     {"row": "C", "column": "7"},
-    #                     {"row": "E", "column": "10"},
-    #                     {"row": "G", "column": "1"},
-    #                     {"row": "I", "column": "11"},
-    #                 ],
-    #                 "shares": [
-    #                     {"share": "American", "count": 2},
-    #                 ],
-    #             }
-    #         ],
-    #         },
-    # }
-    # res = admin.place(req, True)
-
-
-# res = admin.buy(
-# {
-#             "request": "buy",
-#             "shares": ["American", "Imperial"],
-#             "state": {
-#                 "board": {
-#                     "tiles": [
-#                         {"row": "A", "column": "1"},
-#                         {"row": "A", "column": "2"},
-#                         {"row": "C", "column": "3"},
-#                         {"row": "C", "column": "4"},
-#                     ],
-#                     "hotels": [
-#                         {
-#                             "hotel": "American",
-#                             "tiles": [
-#                                 {"row": "C", "column": "3"},
-#                                 {"row": "C", "column": "4"},
-#                             ],
-#                         }
-#                     ],
-#                 },
-#                 "players": [
-#                     {
-#                         "player": "Aditya",
-#                         "cash": 5000,
-#                         "tiles": [
-#                             {"row": "A", "column": "3"},
-#                             {"row": "F", "column": "3"},
-#                             {"row": "D", "column": "3"},
-#                             {"row": "D", "column": "4"},
-#                         ],
-#                         "shares": [
-#                             {"share": "American", "count": 3},
-#                         ],
-#                     }
-#                 ],
-#             },
-# })
-
-
-# print(res)

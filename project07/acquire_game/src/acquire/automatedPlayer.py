@@ -31,6 +31,7 @@ class AutomatedPlayer():
                         flag = True
                     else:
                         flag = False
+                        break
                 else:
                     flag = False 
         if flag:
@@ -90,7 +91,7 @@ class AutomatedPlayer():
         
 if __name__ == '__main__':
     # player = AutomatedPlayer("ordered", ["Aditya", "Jenil"])
-    player = AutomatedPlayer("ordered", ["Jenil", "Aditya"])
+    player = AutomatedPlayer("random", ["Jenil", "Aditya"])
     flag = True
     while flag:
         print("==============================================================================")

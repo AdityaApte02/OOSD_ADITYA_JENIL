@@ -25,17 +25,6 @@ class Board:
             for tile in hotel['tiles']:
                 row = ord(tile["row"]) - 65
                 col = int(tile["column"]) - 1
-                # if (row-1 >=0 and (board[row-1][col] != hotel_label and board[row-1][col] != '0' and board[row-1][col] != '1')) :
-                #     raise Exception("Invalid hotel placement")
-                # elif (row+1 < 9 and (board[row+1][col] != hotel_label and board[row+1][col] != '0' and board[row+1][col] != '1')) :
-                #     raise Exception("Invalid hotel placement")
-                # elif  (col-1 >=0 and (board[row][col-1] != hotel_label and board[row][col-1] != '0' and board[row][col-1] != '1')) :
-                #     raise Exception("Invalid hotel placement")
-                # elif (col+1 < 12 and (board[row][col+1] != hotel_label and board[row][col+1] != '0' and board[row][col+1] != '1')):
-                #     raise Exception("Invalid hotel placement")
-                # else:
-                #     board[row][col] = hotel_label
-                    
                 board[row][col] = hotel_label
             
         # todo: validate adjacent 1s
@@ -47,7 +36,3 @@ class Board:
     @staticmethod
     def print_board(board):
         print(tabulate(board,tablefmt="grid"))
-        # print("\n")
-        # for row in board:
-        #     print(row)
-        # print("\n")

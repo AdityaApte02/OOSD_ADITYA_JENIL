@@ -315,6 +315,7 @@ class Acquire:
                 else:
                     if "hotel" in request.keys():
                         founding_response = self.handle_founding(request, boardMatrix)
+                        print("founding_rsp",founding_response)
                         if type(founding_response) and "founding" in founding_response:
                             returnMsg = founding_response
                             
@@ -495,8 +496,7 @@ class Acquire:
                             acquired_hotels[label] = len_of_hotel
                             if len_of_hotel > max_length:
                                 max_length = len_of_hotel
-                                acquirer = label
-                                
+                                acquirer = label            
         print("acquired_hotels", acquired_hotels)
         print("acquirer",acquirer)
         if acquirer == "":
@@ -530,6 +530,22 @@ class Acquire:
             boardMatrix[row][col] = acquirer
             
         if merging_flag:
+            def dfs(x, y,visited):
+                if x < 0 or y < 0 or x > len(boardMatrix)-1 or y > len(boardMatrix[0])-1 or (x,y) in visited:
+                    return 
+                if boardMatrix[x][y] == '1':
+                    visited.append((x,y))
+                    boardMatrix[x][y] = acquirer
+                    dfs(x-1,y,visited)
+                    dfs(x+1,y,visited)
+                    dfs(x,y-1,visited)
+                    dfs(x,y+1,visited)
+            visited = []
+            dfs(row-1, col,visited)
+            dfs(row+1, col,visited)
+            dfs(row, col-1,visited)
+            dfs(row, col+1,visited)
+                
             return {"acquirer": acquirer, "acquired": acquired, "acquired_hotels_dict" : acquired_hotels}
         else:
             return Error("Other Operation")
