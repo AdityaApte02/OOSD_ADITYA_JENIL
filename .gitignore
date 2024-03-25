@@ -136,4 +136,4 @@ cython_debug/
 .DS_Store
 project03/pythonenv/
 
-*.txt
+out.txt
