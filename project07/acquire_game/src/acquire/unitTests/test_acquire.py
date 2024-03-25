@@ -31,7 +31,7 @@ class AcquireTest(unittest.TestCase):
 
 
     def test_wrongAttributeName_setState_request(self):
-        state = {"board":{"tiles":[], "hotels":[]}}
+        state = {"board":{"tiles":[], "restaurants":[]}}
         expected_output = {
             "error": "Invalid key found in the request state"
         }
@@ -629,9 +629,9 @@ class AcquireTest(unittest.TestCase):
             "column":"2",
             "board":self.acquire.state['board']
         }
-        expected_output = Error('A merger would take place').message
+        expected_output = {'growing': 'Sackson'}
         output = self.acquire.handle_growing(request, boardMatrix)
-        self.assertEqual(output.message, expected_output)
+        self.assertEqual(output, expected_output)
 
 
         board2 = {
@@ -906,9 +906,9 @@ class AcquireTest(unittest.TestCase):
             "hotel":"Continental",
             "board":self.acquire.state['board']
         }
-        expected_output = Error('Hotel has chain length of atleast 11').message
+        expected_output = {'acquirer': 'Continental', 'acquired': ['Continental', 'Festival', 'American'], 'acquired_hotels_dict': {'Continental': 13, 'Festival': 9, 'American': 2}}
         output = self.acquire.handle_merging(request, boardMatrix)
-        self.assertEqual(output.message, expected_output)
+        self.assertEqual(output, expected_output)
         
         
         
