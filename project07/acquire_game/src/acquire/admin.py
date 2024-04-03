@@ -128,10 +128,6 @@ class Admin(AcquireGame):
             return True, buy_message
         else:
             return False, message
-
-
-
-   
     
     def place(self, request, test=True):
         if test:
