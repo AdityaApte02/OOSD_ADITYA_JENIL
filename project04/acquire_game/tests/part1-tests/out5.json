@@ -1,0 +1,3 @@
+{
+    "error": "Tile {'row': 'A', 'column': '20'} is not within the board"
+}

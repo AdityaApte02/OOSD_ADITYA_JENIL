@@ -1,0 +1,3 @@
+{
+    "error": "Hotel {'hotel': 'American', 'tiles': [{'row': 'C', 'column': '4'}]} chain size is less than 2"
+}
