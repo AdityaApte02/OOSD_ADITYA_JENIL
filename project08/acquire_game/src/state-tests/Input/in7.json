@@ -1,0 +1,88 @@
+{
+  "request": "place",
+  "row": "A",
+  "column": "2",
+  "hotel": "American",
+  "state": {
+    "board": {
+      "tiles": [
+        {
+          "row": "A",
+          "column": "1"
+        },
+        {
+          "row": "A",
+          "column": "3"
+        },
+        {
+          "row": "A",
+          "column": "4"
+        },
+        {
+          "row": "B",
+          "column": "1"
+        },
+        {
+          "row": "C",
+          "column": "2"
+        },
+        {
+          "row": "C",
+          "column": "4"
+        }
+      ],
+      "hotels": [
+        {
+          "hotel": "Imperial",
+          "tiles": [
+            {
+              "row": "A",
+              "column": "1"
+            },
+            {
+              "row": "B",
+              "column": "1"
+            }
+          ]
+        },
+        {
+          "hotel": "Continental",
+          "tiles": [
+            {
+              "row": "A",
+              "column": "3"
+            },
+            {
+              "row": "A",
+              "column": "4"
+            }
+          ]
+        }
+      ]
+    },
+    "players": [
+      {
+        "player": "Aditya",
+        "cash": 5000,
+        "tiles": [
+          { "row": "B", "column": "4" },
+          { "row": "A", "column": "2" },
+          { "row": "D", "column": "3" },
+          { "row": "D", "column": "4" }
+        ],
+        "shares": [{ "share": "American", "count": 26 }]
+      },
+      {
+        "player": "Honey",
+        "cash": 6500,
+        "tiles": [
+          { "row": "A", "column": "3" },
+          { "row": "F", "column": "3" },
+          { "row": "D", "column": "3" },
+          { "row": "D", "column": "4" }
+        ],
+        "shares": [{ "share": "American", "count": 3 }]
+      }
+    ]
+  }
+}

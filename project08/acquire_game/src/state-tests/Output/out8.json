@@ -1,0 +1,96 @@
+{
+  "board": {
+    "tiles": [
+      { "row": "A", "column": "1" },
+      { "row": "A", "column": "2" },
+      { "row": "A", "column": "5" },
+      { "row": "B", "column": "5" },
+      { "row": "C", "column": "1" },
+      { "row": "C", "column": "2" },
+      { "row": "C", "column": "11" },
+      { "row": "C", "column": "12" },
+      { "row": "D", "column": "5" },
+      { "row": "E", "column": "1" },
+      { "row": "E", "column": "2" },
+      { "row": "E", "column": "5" },
+      { "row": "G", "column": "1" },
+      { "row": "G", "column": "2" },
+      { "row": "H", "column": "10" },
+      { "row": "I", "column": "10" }
+    ],
+    "hotels": [
+      {
+        "hotel": "Tower",
+        "tiles": [
+          { "row": "A", "column": "1" },
+          { "row": "A", "column": "2" }
+        ]
+      },
+      {
+        "hotel": "Festival",
+        "tiles": [
+          { "row": "A", "column": "5" },
+          { "row": "B", "column": "5" }
+        ]
+      },
+      {
+        "hotel": "Continental",
+        "tiles": [
+          { "row": "C", "column": "1" },
+          { "row": "C", "column": "2" }
+        ]
+      },
+      {
+        "hotel": "Sackson",
+        "tiles": [
+          { "row": "D", "column": "5" },
+          { "row": "E", "column": "5" }
+        ]
+      },
+      {
+        "hotel": "American",
+        "tiles": [
+          { "row": "E", "column": "1" },
+          { "row": "E", "column": "2" }
+        ]
+      },
+      {
+        "hotel": "Imperial",
+        "tiles": [
+          { "row": "G", "column": "1" },
+          { "row": "G", "column": "2" }
+        ]
+      },
+      {
+        "hotel": "Worldwide",
+        "tiles": [
+          { "row": "H", "column": "10" },
+          { "row": "I", "column": "10" }
+        ]
+      }
+    ]
+  },
+  "players": [
+    {
+      "name": "Aditya",
+      "cash": 5000,
+      "tiles": [
+        { "row": "D", "column": "12" },
+        { "row": "I", "column": "6" },
+        { "row": "H", "column": "4" }
+      ],
+      "shares": [{ "share": "American", "count": 3 }]
+    },
+    {
+      "name": "Honey",
+      "cash": 6500,
+      "tiles": [
+        { "row": "A", "column": "12" },
+        { "row": "B", "column": "10" },
+        { "row": "F", "column": "3" },
+        { "row": "F", "column": "4" }
+      ],
+      "shares": [{ "share": "American", "count": 3 }]
+    }
+  ]
+}
