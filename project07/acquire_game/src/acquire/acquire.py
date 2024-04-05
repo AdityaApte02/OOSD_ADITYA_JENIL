@@ -319,8 +319,14 @@ class Acquire:
                         if type(founding_response) and "founding" in founding_response:
                             returnMsg = founding_response
                             
+                        else:
+                            returnMsg = Error('Impossible Move')
+                            
         print('returnMsg',returnMsg)
         return returnMsg
+    
+    
+        #Need to figure out what should be done here
         # return Error("Invalid Board!")
 
     def handle_singleton(self, request, boardMatrix):
@@ -377,8 +383,7 @@ class Acquire:
             ):
                 if len(boardMatrix[row + r][col + c]) > 1:
                     if boardMatrix[row + r][col + c] != hotel and hotel != "":
-                        # return Error("A merger would take place")
-                        boardMatrix[row][col] = hotel
+                        return Error("A merger would take place")
                     hotel = boardMatrix[row + r][col + c]
         def dfs(x, y):
             visited.add((x, y))

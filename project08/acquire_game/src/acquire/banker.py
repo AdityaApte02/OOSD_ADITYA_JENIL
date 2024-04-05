@@ -202,6 +202,6 @@ class Banker:
         # This is to be called separately in done method
         
         if len(self.remaining_tiles) == 0:
-            exit()
+            return False, "No Tile"
         tile = self.remaining_tiles.pop(0)
-        return tile
+        return True, tile

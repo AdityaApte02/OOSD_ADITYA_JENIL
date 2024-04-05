@@ -139,8 +139,8 @@ class Admin(AcquireGame):
         return None
 
     def place(self, row, column):
+        print("> bsdfjbsdjfbsjdbfjsdbfkjb")
         hotel = self.getFirstAvailableHotel()
-        print("hotel",hotel)
         state_instance = self.acquire.state
         board_instance = self.acquire.state["board"]
         # todo: iterate in tile objects
@@ -165,31 +165,37 @@ class Admin(AcquireGame):
             try:
                 # create the board matrix here
                 boardMatrix = board_instance.create_board()
-                requestObj = {
-                    "request": "query",
-                    "row": row,
-                    "column": column,
-                    "board": board_instance,
-                }
-               
-                if hotel is not None:
-                    requestObj["hotel"] = hotel
-                response = self.acquire.handle_query(requestObj, boardMatrix)
-                if type(response) != Error:
-                    Board.print_board(boardMatrix)
-                    new_board = utils.matrix_to_object(boardMatrix)
-                    self.update_banker_records(row, column, response, new_board)
-                    if type(response) == dict and "acquirer" in response:
-                        acquired = response["acquired"]
-                        if response["acquirer"] in acquired:
-                            acquired.remove(response["acquirer"])
-                        self.banker.add_hotels_from_acquired(acquired)
-                        self.banker.distribute_bonuses(self.acquire.state["players"], response.get("acquired_hotels_dict"))
+                print('type of boardMatrix',boardMatrix)
+                if type(boardMatrix) != type(Error("")):
+                    requestObj = {
+                        "request": "query",
+                        "row": row,
+                        "column": column,
+                        "board": board_instance,
+                    }
+                
+                    if hotel is not None:
+                        requestObj["hotel"] = hotel
+                    response = self.acquire.handle_query(requestObj, boardMatrix)
+                    if type(response) == Error:
+                        self.acquire.state["players"][0].tiles.remove(
+                            {"row":row, "column": column}
+                        )
+                    if type(response) != Error:
+                        Board.print_board(boardMatrix)
+                        new_board = utils.matrix_to_object(boardMatrix)
+                        self.update_banker_records(row, column, response, new_board)
+                        if type(response) == dict and "acquirer" in response:
+                            acquired = response["acquired"]
+                            if response["acquirer"] in acquired:
+                                acquired.remove(response["acquirer"])
+                            self.banker.add_hotels_from_acquired(acquired)
+                            self.banker.distribute_bonuses(self.acquire.state["players"], response.get("acquired_hotels_dict"))
 
-                    self.acquire.set_state(new_board["state"])
+                        self.acquire.set_state(new_board["state"])
 
-                else:
-                    return False, response.to_dict()
+                    else:
+                        return False, response.to_dict()
 
             except Exception as e:
                 traceback.print_exception(*sys.exc_info())

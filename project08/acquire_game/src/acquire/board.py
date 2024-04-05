@@ -1,6 +1,7 @@
 from tile import Tile
 from hotel import Hotel
 from tabulate import tabulate
+from error import Error
 class Board:
     def __init__(self):
         self.tiles = []
@@ -25,9 +26,21 @@ class Board:
             for tile in hotel['tiles']:
                 row = ord(tile["row"]) - 65
                 col = int(tile["column"]) - 1
-                board[row][col] = hotel_label
-            
-        # todo: validate adjacent 1s
+                if (row-1 >=0 and (board[row-1][col] != hotel_label and board[row-1][col] != '0' and board[row-1][col] != '1')) :
+                    return Error('Invalid Board')
+                    # raise Exception("Invalid hotel placement")
+                elif (row+1 < 9 and (board[row+1][col] != hotel_label and board[row+1][col] != '0' and board[row+1][col] != '1')) :
+                    return Error('Invalid Board')
+                    # raise Exception("Invalid hotel placement")
+                elif (col-1 >=0 and (board[row][col-1] != hotel_label and board[row][col-1] != '0' and board[row][col-1] != '1')) :
+                    return Error('Invalid Board')
+                    # raise Exception("Invalid hotel placement")
+                elif (col+1 < 12 and (board[row][col+1] != hotel_label and board[row][col+1] != '0' and board[row][col+1] != '1')):
+                    return Error('Invalid Board')
+                    # raise Exception("Invalid hotel placement")
+                else:
+                    board[row][col] = hotel_label
+        print("> UBFBJBJHSBJHBSHBDSDHSBDBS")
         return board
     
     def place_tile(self, row, column):

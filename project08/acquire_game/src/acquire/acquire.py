@@ -315,9 +315,10 @@ class Acquire:
                 else:
                     if "hotel" in request.keys():
                         founding_response = self.handle_founding(request, boardMatrix)
-                        print("founding_rsp",founding_response)
-                        if type(founding_response) and "founding" in founding_response:
+                        if type(founding_response) == dict and "founding" in founding_response:
                             returnMsg = founding_response
+                        else:
+                            returnMsg = Error("Invalid Move")
                             
         print('returnMsg',returnMsg)
         return returnMsg
@@ -377,8 +378,7 @@ class Acquire:
             ):
                 if len(boardMatrix[row + r][col + c]) > 1:
                     if boardMatrix[row + r][col + c] != hotel and hotel != "":
-                        # return Error("A merger would take place")
-                        boardMatrix[row][col] = hotel
+                        return Error("Invalid Growing Move")
                     hotel = boardMatrix[row + r][col + c]
         def dfs(x, y):
             visited.add((x, y))
@@ -497,8 +497,6 @@ class Acquire:
                             if len_of_hotel > max_length:
                                 max_length = len_of_hotel
                                 acquirer = label            
-        print("acquired_hotels", acquired_hotels)
-        print("acquirer",acquirer)
         if acquirer == "":
             merging_flag = False
             return Error("No hotels to merge")

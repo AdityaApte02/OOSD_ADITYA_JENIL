@@ -21,6 +21,15 @@ class AutomatedPlayer:
         return smallest_tile
 
     def gameOver(self):
+        flag = True
+        for player in self.admin.acquire.state["players"]:
+            if len(player.tiles) != 0:
+                flag = False
+                break
+            
+        if flag:
+            return True, "No playable Tiles"
+                
         flag = False
         for hotel in self.admin.acquire.state["board"].hotels:
             if len(hotel["tiles"]) >= 41:
@@ -41,18 +50,20 @@ class AutomatedPlayer:
 
     def playTile(self):
         player = self.admin.acquire.state["players"][0]
+        print(f"{player.name}", player.tiles)
         if self.strategy == "ordered":
             smallest_tile = self.find_smallest_tile(player.tiles)
             row = smallest_tile.row
             column = smallest_tile.column
-            self.admin.place(row, column)
+            print("RESP",self.admin.place(row, column))
 
         if self.strategy == "random":
             index = random.randint(0, len(player.tiles) - 1)
             tile = Tile(player.tiles[index]["row"], player.tiles[index]["column"])
             row = tile.row
             column = tile.column
-            self.admin.place(row, column)
+            print("RESP",self.admin.place(row, column))
+            
 
     def buyShares(self):
         player = self.admin.acquire.state["players"][0]
@@ -92,7 +103,6 @@ class AutomatedPlayer:
 
 
 if __name__ == "__main__":
-    # player = AutomatedPlayer("ordered", ["Aditya", "Jenil"])
     if sys.argv[1] == "1":
         strategy = "ordered"
     else:
@@ -104,8 +114,8 @@ if __name__ == "__main__":
             "=============================================================================="
         )
         response = player.gameOver()
+        print("response", response)
         if response[0]:
-            print("response", response[1])
             flag = False
         else:
             player.playTile()
