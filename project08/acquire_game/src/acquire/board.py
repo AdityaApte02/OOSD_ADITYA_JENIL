@@ -40,7 +40,6 @@ class Board:
                     # raise Exception("Invalid hotel placement")
                 else:
                     board[row][col] = hotel_label
-        print("> UBFBJBJHSBJHBSHBDSDHSBDBS")
         return board
     
     def place_tile(self, row, column):

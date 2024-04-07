@@ -2,12 +2,13 @@ from error import Error
 from player import HumanPlayer
 from board import Board
 from tile import Tile
-
+from tabulate import tabulate
 
 def printBoard(board):
-    print("================================")
-    for r in board:
-        print(r)
+    # print("================================")
+    # for r in board:
+    #     print(r)
+    print(tabulate(board,tablefmt="grid"))
 
 
 class Acquire:
@@ -23,13 +24,12 @@ class Acquire:
         self.state["board"].hotels = state["board"]["hotels"]
         if flag:
             self.state["players"] = []
-            players = state["players"]
-            for player in players:
-                current_player = HumanPlayer(player["player"])
-                current_player.cash = player["cash"]
-                current_player.shares = player["shares"]
-                current_player.tiles = player["tiles"]
-                self.state["players"].append(current_player)
+            player = state["player"]
+            current_player = HumanPlayer(player["player"])
+            current_player.cash = player["cash"]
+            current_player.shares = player["shares"]
+            current_player.tiles = player["tiles"]
+            self.state["players"].append(current_player)
 
     def validate_board(self, board):
         # check if hotel tiles are less than or equal to total tiles
@@ -298,7 +298,6 @@ class Acquire:
 
     def handle_query(self, request, boardMatrix):
         returnMsg = ''
-        print(request["row"], request["column"])
         if boardMatrix[ord(request["row"]) - 65][int(request["column"]) - 1] != "0":
             return False, Error("A tile already exists at the desired location").to_dict()
         res = self.handle_singleton(request, boardMatrix)
@@ -319,10 +318,11 @@ class Acquire:
                             returnMsg = founding_response
                         else:
                             returnMsg = Error("Invalid Move")
+                    else:
+                        returnMsg = Error("Invalid Move")
                             
-        print('returnMsg',returnMsg)
+        # print('returnMsg',returnMsg)
         return returnMsg
-        # return Error("Invalid Board!")
 
     def handle_singleton(self, request, boardMatrix):
         row = ord(request["row"]) - 65
@@ -400,7 +400,7 @@ class Acquire:
                 boardMatrix[int(tile.row)][int(tile.column)] = hotel
             else:
                 return Error("No hotel found")
-        return {"growing": hotel}
+        return {"growing": hotel,"hotel":hotel}
 
     def handle_founding(self, request, boardMatrix):
         row = ord(request["row"]) - 65
@@ -460,7 +460,7 @@ class Acquire:
             boardMatrix[int(tile.row)][int(tile.column)] = hotel_label
 
         # Call the update handler and convert to board object form
-        return {"founding": hotel_label}
+        return {"founding": hotel_label,"hotel":hotel_label}
 
     def handle_merging(self, request, boardMatrix):
         row = ord(request["row"]) - 65

@@ -156,7 +156,6 @@ class Banker:
                         stock_holder[player.name] = shares["count"]
                         break
             sorted_stock_holder = list(sorted(stock_holder.items(), key=lambda item: item[1], reverse=True))
-
             if len(sorted_stock_holder) == 1:
                 for player in players:
                     if player.name == sorted_stock_holder[0][0]:

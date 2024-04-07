@@ -8,7 +8,8 @@ import utils as utils
 from tile import Tile
 from board import Board
 from tabulate import tabulate
-import traceback 
+import traceback
+import random
 
 
 class Admin(AcquireGame):
@@ -67,10 +68,10 @@ class Admin(AcquireGame):
         self.banker.update_remaining_hotels(hotels)
     
         self.remove_player_tile(row, column)
-
+        # print("HJJJH",response)
         if "founding" in response.keys():
             self.acquire.state["players"][0].shares.append(
-                {"hotel_label": response["founding"], "count": 1}
+                {"share": response["founding"], "count": 1}
             )
 
     def buy_shares(self, label):
@@ -93,7 +94,7 @@ class Admin(AcquireGame):
                 if len_hotel_tiles >= lower_range and len_hotel_tiles <= higher_range:
                     share_price = price
                     break
-
+            
             player = self.acquire.state["players"][0]
             if player.cash < share_price:
                 return (
@@ -109,6 +110,8 @@ class Admin(AcquireGame):
             is_present = False
             for share in player.shares:
                 if "share" in share and share["share"] == label:
+                    print(share)
+                    share["count"] = int(share["count"])
                     share["count"] += 1
                     is_present = True
                     break
@@ -116,10 +119,6 @@ class Admin(AcquireGame):
                 player.shares.append({"share": label, "count": 1})
             remaining_shares -= 1
             self.banker.update_remaining_shares(remaining_shares, label)
-
-        print(self.banker.remaining_shares[label])
-        print("Player cash: ", player.cash)
-        print("Player shares: ", player.shares)
         return True, "None"
 
     def buy(self, request):
@@ -138,6 +137,10 @@ class Admin(AcquireGame):
             return False, message
 
     def getFirstAvailableHotel(self):
+        if len(self.banker.remaining_hotels) > 1:
+            idx = random.randint(0, 100) % len(self.banker.remaining_hotels)    
+        else:
+            idx = 0
         if len(self.banker.remaining_hotels) > 0:
             return sorted(self.banker.remaining_hotels)[0]
         return None
@@ -179,18 +182,24 @@ class Admin(AcquireGame):
                         requestObj["hotel"] = hotel
                     response = self.acquire.handle_query(requestObj, boardMatrix)
                     if type(response) != Error:
-                        Board.print_board(boardMatrix)
+                        res = {"row":row,"column":column}
+                        if "hotel" in response:
+                            res["hotel"] = response["hotel"]
+                        # Board.print_board(boardMatrix)
                         new_board = utils.matrix_to_object(boardMatrix)
                         self.update_banker_records(row, column, response, new_board)
                         if type(response) == dict and "acquirer" in response:
                             acquired = response["acquired"]
                             if response["acquirer"] in acquired:
                                 acquired.remove(response["acquirer"])
+                                
+                            acquired_hotels_dict = response.get('acquired_hotels_dict')
+                            del acquired_hotels_dict[response["acquirer"]]
                             self.banker.add_hotels_from_acquired(acquired)
-                            self.banker.distribute_bonuses(self.acquire.state["players"], response.get("acquired_hotels_dict"))
+                            self.banker.distribute_bonuses(self.acquire.state["players"], acquired_hotels_dict)
 
                         self.acquire.set_state(new_board["state"])
-                        return True,""
+                        return True,res
                     else:
                         self.remove_player_tile(row, column)
                         return False, response.to_dict()

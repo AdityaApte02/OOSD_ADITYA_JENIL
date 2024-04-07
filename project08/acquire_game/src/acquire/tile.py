@@ -4,6 +4,10 @@ class Tile:
         self.column = column
         
     def __gt__(self,other):
+        if ord(self.row) == ord(other.row):
+            if int(self.column) < int(other.column):
+                return False
+            return True
         if ord(self.row) < ord(other.row) or (ord(self.row) == ord(other.row) and int(self.column) < int(self.column)):
             return False
         return True
