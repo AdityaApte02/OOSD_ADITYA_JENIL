@@ -1,13 +1,7 @@
-# Project 07
+# Project 08
 
-Follow the below steps to run the automated player with
+Follow the below steps to run the automated driver
 
-- Run the automatedPlayer.py file
-
-- We pass the strategy parameter to the AutomatedPlayer as "python automatedPlayer.py {STRATEGY}" where 1 is for 'ordered' and 2 is for 'random'.
-
-Implementation Details:
-
-- After placing a tile, the player buys shares using the specified strategy.
-
-- The game runs till a hotel has 41 tiles or each hotel has 11 tiles and is safe.
+- Run the automatedDriver.py file
+- To run the testcases run the file run_acquire_test_harness.py
+- 
