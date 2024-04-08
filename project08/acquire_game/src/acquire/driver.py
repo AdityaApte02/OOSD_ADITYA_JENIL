@@ -32,7 +32,6 @@ class ATestHarness:
         rset = set(frozenset(d.items()) for d in remainingTiles)
         bset = set(frozenset(d.items()) for d in boardTiles)
         if len(playerTiles+remainingTiles+boardTiles) == 108 and (pset.isdisjoint(bset) and rset.isdisjoint(bset) and pset.isdisjoint(rset)):
-            print("TILETRUE")
             return True
         return False
     
@@ -52,7 +51,7 @@ class ATestHarness:
             else:
                 if int(share["count"]) != 25:
                     return False
-        print("SHARETRUE")
+
         return True
             
     def hotelHelper(self,boardHotels):
@@ -66,7 +65,6 @@ class ATestHarness:
         remainingHotelsSet = set(self.hotelHelper(remainingHotels))
 
         if boardSet.isdisjoint(remainingHotelsSet) and len(boardSet.union(remainingHotelsSet)) == 7:
-            print("HOTELTRUE")
             return True
         return False
             
@@ -99,7 +97,7 @@ class TestDriver:
                     win = True
                     
                 response = {
-                    "win":win,
+                    "win":str(win),
                     "hotel":shareRes,
                     "place":tileRes
                 }

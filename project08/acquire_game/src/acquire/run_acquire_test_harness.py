@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         self.folder_path = '../player-tests/Input/'
         self.output_path = '../player-tests/Output/'
         if os.path.exists(self.folder_path):
-            print('folder_path',self.folder_path)
+            # print('folder_path',self.folder_path)
             self.file_list = [f for f in os.listdir(self.folder_path) if os.path.isfile(os.path.join(self.folder_path, f))]
             self.file_list.sort()
             self.responses = []

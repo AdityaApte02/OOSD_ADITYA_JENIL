@@ -7,7 +7,7 @@ import random
 class AutomatedDriver():
     def __init__(self, playersList):
         self.admin = Admin()
-        playerNames = [player.name for player in playerList]
+        playerNames = [player.name for player in playersList]
         self.admin.setUp({"request":"setup", "players":playerNames})
         self.players = playersList
         
