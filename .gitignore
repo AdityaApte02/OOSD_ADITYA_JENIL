@@ -137,3 +137,5 @@ cython_debug/
 project03/pythonenv/
 
 out.txt
+project08/acquire_game/src/acquire/test.py
+project08/board.txt

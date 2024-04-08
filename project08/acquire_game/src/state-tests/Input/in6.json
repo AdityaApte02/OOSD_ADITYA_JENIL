@@ -1,0 +1,48 @@
+{
+  "request": "done",
+  "state": {
+    "board": {
+      "tiles": [
+        { "row": "A", "column": "1" },
+        { "row": "A", "column": "2" },
+        { "row": "C", "column": "3" },
+        { "row": "C", "column": "4" },
+        { "row": "D", "column": "7" }
+      ],
+      "hotels": [
+        {
+          "hotel": "American",
+          "tiles": [
+            { "row": "C", "column": "3" },
+            { "row": "C", "column": "4" }
+          ]
+        }
+      ]
+    },
+    "players": [
+      {
+        "player": "Aditya",
+        "cash": 5000,
+        "tiles": [
+          { "row": "A", "column": "3" },
+          { "row": "F", "column": "3" },
+          { "row": "D", "column": "3" },
+          { "row": "D", "column": "4" }
+        ],
+        "shares": [{ "share": "American", "count": 3 }]
+      },
+
+      {
+        "player": "Mayur",
+        "cash": 5000,
+        "tiles": [
+          { "row": "C", "column": "7" },
+          { "row": "E", "column": "10" },
+          { "row": "G", "column": "1" },
+          { "row": "I", "column": "11" }
+        ],
+        "shares": [{ "share": "American", "count": 2 }]
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "win": "True",
+  "hotel": ["Imperial", "Imperial", "Imperial"],
+  "place": { "row": "D", "column": "5", "hotel": "Imperial" }
+}

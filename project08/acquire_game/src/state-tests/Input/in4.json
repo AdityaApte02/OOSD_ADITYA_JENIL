@@ -1,0 +1,99 @@
+{
+  "request": "buy",
+  "shares": ["American", "Imperial"],
+  "state": {
+    "board": {
+      "tiles": [
+        {
+          "row": "A",
+          "column": "1"
+        },
+        {
+          "row": "A",
+          "column": "3"
+        },
+        {
+          "row": "A",
+          "column": "4"
+        },
+        {
+          "row": "B",
+          "column": "1"
+        },
+        {
+          "row": "C",
+          "column": "3"
+        },
+        {
+          "row": "C",
+          "column": "4"
+        }
+      ],
+      "hotels": [
+        {
+          "hotel": "Imperial",
+          "tiles": [
+            {
+              "row": "A",
+              "column": "1"
+            },
+            {
+              "row": "B",
+              "column": "1"
+            }
+          ]
+        },
+        {
+          "hotel": "Continental",
+          "tiles": [
+            {
+              "row": "A",
+              "column": "3"
+            },
+            {
+              "row": "A",
+              "column": "4"
+            }
+          ]
+        },
+        {
+          "hotel": "Festival",
+          "tiles": [
+            {
+              "row": "C",
+              "column": "3"
+            },
+            {
+              "row": "C",
+              "column": "4"
+            }
+          ]
+        }
+      ]
+    },
+    "players": [
+      {
+        "player": "Aditya",
+        "cash": 5000,
+        "tiles": [
+          { "row": "A", "column": "11" },
+          { "row": "F", "column": "10" },
+          { "row": "D", "column": "10" },
+          { "row": "D", "column": "11" }
+        ],
+        "shares": [{ "share": "American", "count": 3 }]
+      },
+      {
+        "player": "Honey",
+        "cash": 6500,
+        "tiles": [
+          { "row": "B", "column": "3" },
+          { "row": "F", "column": "10" },
+          { "row": "D", "column": "9" },
+          { "row": "E", "column": "12" }
+        ],
+        "shares": [{ "share": "American", "count": 3 }]
+      }
+    ]
+  }
+}
