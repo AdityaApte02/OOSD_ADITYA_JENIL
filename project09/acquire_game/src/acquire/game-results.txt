@@ -1,0 +1,2 @@
+While we run tests we can see that the players who goes third or fourth have better chances of winning and in general random strategy proves most successfull if every other strategies are compared at a given place. Below given are the stats when we run the game 100 times.
+{'ordered': 20, 'largest-alpha': 18, 'smallest-anti': 21, 'random': 41}
