@@ -1,0 +1,151 @@
+{
+  "request": "place",
+  "row": "D",
+  "column": "4",
+  "state": {
+    "board": {
+      "tiles": [
+        {
+          "row": "B",
+          "column": "2"
+        },
+        {
+          "row": "C",
+          "column": "1"
+        },
+        {
+          "row": "C",
+          "column": "6"
+        },
+        {
+          "row": "C",
+          "column": "5"
+        },
+        {
+          "row": "C",
+          "column": "4"
+        },
+        { "row": "D", "column": "2" },
+        { "row": "D", "column": "1" },
+        {
+          "row": "E",
+          "column": "4"
+        },
+        {
+          "row": "E",
+          "column": "5"
+        },
+        {
+          "row": "E",
+          "column": "6"
+        },
+        {
+          "row": "F",
+          "column": "4"
+        },
+        {
+          "row": "D",
+          "column": "3"
+        }
+      ],
+      "hotels": [
+        {
+          "hotel": "Festival",
+          "tiles": [
+            { "row": "D", "column": "2" },
+            {
+              "row": "D",
+              "column": "1"
+            },
+            {
+              "row": "D",
+              "column": "3"
+            }
+          ]
+        },
+        {
+          "hotel": "Continental",
+          "tiles": [
+            {
+              "row": "E",
+              "column": "4"
+            },
+            {
+              "row": "E",
+              "column": "5"
+            },
+            {
+              "row": "E",
+              "column": "6"
+            },
+            {
+              "row": "F",
+              "column": "4"
+            }
+          ]
+        },
+        {
+          "hotel": "American",
+          "tiles": [
+            {
+              "row": "C",
+              "column": "6"
+            },
+            {
+              "row": "C",
+              "column": "5"
+            },
+            {
+              "row": "C",
+              "column": "4"
+            }
+          ]
+        }
+      ]
+    },
+    "players": [
+      {
+        "player": "Aditya",
+        "cash": 5000,
+        "tiles": [
+          { "row": "A", "column": "3" },
+          { "row": "F", "column": "3" },
+          { "row": "E", "column": "1" },
+          { "row": "D", "column": "4" }
+        ],
+        "shares": [
+          { "share": "American", "count": 3 },
+          { "share": "Festival", "count": 2 }
+        ]
+      },
+      {
+        "player": "Honey",
+        "cash": 6500,
+        "tiles": [
+          { "row": "I", "column": "3" },
+          { "row": "I", "column": "4" },
+          { "row": "H", "column": "3" },
+          { "row": "G", "column": "0" }
+        ],
+        "shares": [
+          { "share": "American", "count": 3 },
+          { "share": "Festival", "count": 2 }
+        ]
+      },
+      {
+        "player": "Mayur",
+        "cash": 4000,
+        "tiles": [
+          { "row": "I", "column": "2" },
+          { "row": "I", "column": "1" },
+          { "row": "H", "column": "2" },
+          { "row": "G", "column": "1" }
+        ],
+        "shares": [
+          { "share": "American", "count": 3 },
+          { "share": "Festival", "count": 4 }
+        ]
+      }
+    ]
+  }
+}

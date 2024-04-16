@@ -1,0 +1,62 @@
+{
+  "board": {
+    "tiles": [
+      { "row": "A", "column": "1" },
+      { "row": "A", "column": "3" },
+      { "row": "A", "column": "4" },
+      { "row": "B", "column": "1" },
+      { "row": "C", "column": "3" },
+      { "row": "C", "column": "4" }
+    ],
+    "hotels": [
+      {
+        "hotel": "Imperial",
+        "tiles": [
+          { "row": "A", "column": "1" },
+          { "row": "B", "column": "1" }
+        ]
+      },
+      {
+        "hotel": "Continental",
+        "tiles": [
+          { "row": "A", "column": "3" },
+          { "row": "A", "column": "4" }
+        ]
+      },
+      {
+        "hotel": "American",
+        "tiles": [
+          { "row": "C", "column": "3" },
+          { "row": "C", "column": "4" }
+        ]
+      }
+    ]
+  },
+  "players": [
+    {
+      "name": "Aditya",
+      "cash": 4400,
+      "tiles": [
+        { "row": "A", "column": "11" },
+        { "row": "F", "column": "12" },
+        { "row": "D", "column": "10" },
+        { "row": "D", "column": "11" }
+      ],
+      "shares": [
+        { "share": "American", "count": 4 },
+        { "share": "Imperial", "count": 1 }
+      ]
+    },
+    {
+      "name": "Honey",
+      "cash": 6500,
+      "tiles": [
+        { "row": "B", "column": "3" },
+        { "row": "F", "column": "10" },
+        { "row": "D", "column": "9" },
+        { "row": "E", "column": "12" }
+      ],
+      "shares": [{ "share": "American", "count": 3 }]
+    }
+  ]
+}
