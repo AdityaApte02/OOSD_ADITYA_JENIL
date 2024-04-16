@@ -2,7 +2,7 @@
     "player":{
         "player":"Jenil",
         "cash":6000,
-        "shares":[{"share":"Worldwide", "count":"25"}, {"share":"Sackson", "count":"25"}, {"share":"Festival", "count":"25"}, {"share":"Imperial", "count":"25"}, {"share":"American", "count":"25"}, {"share":"Continental", "count":"25"}, {"share":"Tower", "count":"25"}],
+        "shares":[{"share":"Imperial", "count":"1"}],
         "tiles":[{ "row": "A", "column": "8" },
         { "row": "F", "column": "12" },
         { "row": "D", "column": "10" },
@@ -116,7 +116,7 @@
     {"row":"I","column":"11"},
     {"row":"I","column":"12"}
 ],
-    "share":[{"share":"Worldwide", "count":"0"}, {"share":"Sackson", "count":"0"}, {"share":"Festival", "count":"0"}, {"share":"Imperial", "count":"0"}, {"share":"American", "count":"0"}, {"share":"Continental", "count":"0"}, {"share":"Tower", "count":"0"}],
+    "share":[{"share":"Worldwide", "count":"25"}, {"share":"Sackson", "count":"25"}, {"share":"Festival", "count":"25"}, {"share":"Imperial", "count":"24"}, {"share":"American", "count":"25"}, {"share":"Continental", "count":"25"}, {"share":"Tower", "count":"25"}],
     "xhotel":[{"hotel":"Worldwide"}, {"hotel":"Sackson"}, {"hotel":"Continental"}, {"hotel":"Festival"},{"hotel":"American"}]
 
 }
