@@ -10,13 +10,14 @@ from board import Board
 from tabulate import tabulate
 import traceback
 import random
-
+from gameTree import GameTree
 
 class Admin(AcquireGame):
     def __init__(self):
         super().__init__()
         self.banker = Banker()
         self.acquire = Acquire()
+        self.gameTree = GameTree()
 
     def setUp(self, request):
         playerList = request["players"]
@@ -63,12 +64,9 @@ class Admin(AcquireGame):
 
     def update_banker_records(self, row, column, response, new_board):
         board = new_board["state"]["board"]
-
         hotels = board["hotels"]
         self.banker.update_remaining_hotels(hotels)
-    
         self.remove_player_tile(row, column)
-        # print("HJJJH",response)
         if "founding" in response.keys():
             self.acquire.state["players"][0].shares.append(
                 {"share": response["founding"], "count": 1}
@@ -103,7 +101,7 @@ class Admin(AcquireGame):
                         "The player does not have enough cash to buy the shares"
                     ).to_dict(),
                 )
-
+            
             player.cash -= share_price
 
             # If the player already has the shares, update the count or else add the shares to the player
@@ -117,25 +115,11 @@ class Admin(AcquireGame):
                     break
             if not is_present:
                 player.shares.append({"share": label, "count": 1})
-            if buy:
-                remaining_shares -= 1
-                self.banker.update_remaining_shares(remaining_shares, label)
+            
+            remaining_shares -= 1
+            self.banker.update_remaining_shares(remaining_shares, label)
         return True, "None"
 
-    def buy(self, request):
-        self.acquire.set_state(request["state"], True)
-        state_instance = self.acquire.state
-        is_valid, message = self.acquire.validate_state(state_instance)
-        if is_valid:
-            is_buy_valid = True
-            for share in request["shares"]:
-                if is_buy_valid:
-                    is_buy_valid, buy_message = self.buy_shares(share)
-                else:
-                    return False, buy_message
-            return True, buy_message
-        else:
-            return False, message
 
     def getFirstAvailableHotel(self):
         if len(self.banker.remaining_hotels) > 1:
@@ -148,12 +132,9 @@ class Admin(AcquireGame):
 
     def place(self, row, column,place=True):
         hotel = self.getFirstAvailableHotel()
-        state_instance = self.acquire.state
         board_instance = self.acquire.state["board"]
-        # todo: iterate in tile objects
         flag = False
         requested_tile = {"row": row, "column": column}
-        # check if requested tile is within board limits
         if requested_tile["row"] not in "ABCDEFGHI" or int(
             requested_tile["column"]
         ) not in range(1, 13):
@@ -170,7 +151,6 @@ class Admin(AcquireGame):
         is_valid = True
         if is_valid:
             try:
-                # create the board matrix here
                 boardMatrix = board_instance.create_board()
                 if type(boardMatrix) != Error:
                     requestObj = {
@@ -183,12 +163,12 @@ class Admin(AcquireGame):
                         requestObj["hotel"] = hotel
                     response = self.acquire.handle_query(requestObj, boardMatrix,place)
                     if type(response) != Error:
-                        res = {"row":row,"column":column}
+                        res = {"row":row,"column":column, "response":response}
                         if "hotel" in response:
                             res["hotel"] = response["hotel"]
-                        # Board.print_board(boardMatrix)
                         new_board = utils.matrix_to_object(boardMatrix)
-                        self.update_banker_records(row, column, response, new_board)
+                        if place:
+                            self.update_banker_records(row, column, response, new_board)
                         if type(response) == dict and "acquirer" in response:
                             acquired = response["acquired"]
                             if response["acquirer"] in acquired:
@@ -213,24 +193,14 @@ class Admin(AcquireGame):
         else:
             return False, "State is Valid"
 
-    def done(self, request=None):
-        # todo: rotate the player list and return state
-        if request == None:
-            res, tile = self.banker.give_new_tile()
-            if res:
-                self.acquire.state["players"][0].tiles.append(tile)  
-            player = self.acquire.state["players"].pop(0)
-            self.acquire.state["players"].append(player)
-
-        else:
-            self.banker.update_remaining_tiles(request)
-            self.banker.update_remaining_hotels(request["state"]["board"]["hotels"])
-            self.acquire.set_state(request["state"], True)
-
-            player = self.acquire.state["players"].pop(0)
-            print("Player", player.__dict__)
-            self.acquire.state["players"].append(player)
-
-        
+    def done(self):
+        res, tile = self.banker.give_new_tile()
+        if res:
+            self.acquire.state["players"][0].tiles.append(tile) 
+        player = self.acquire.state["players"].pop(0)
+        self.acquire.state["players"].append(player)
         return True, self.print_state(self.acquire.state)
 
+    def play(self):
+        self.gameTree.generateTree(self)
+  

@@ -4,14 +4,14 @@ from automatedPlayer import AutomatedPlayer
 from tile import Tile
 import random
 from gameTree import GameTree
-
+import time
+from tabulate import tabulate
 class AutomatedDriver():
     def __init__(self, playersList):
         self.admin = Admin()
         playerNames = [player.name for player in playersList]
         self.admin.setUp({"request":"setup", "players":playerNames})
         self.players = playersList
-        self.gameTree = GameTree(self.admin)
         
         
     def getPlayer(self, name):
@@ -47,16 +47,34 @@ class AutomatedDriver():
             return True, "All Hotels are safe"
         return False, "Game Continues"
         
-    def play(self):
+
+    def place(self,perform=True):
         player = self.admin.acquire.state["players"][0]
         automatedPlayer = self.getPlayer(player.name)
-        automatedPlayer.playTile(self.admin)
+        return automatedPlayer.playTile(self.admin, perform)
         
     
-    def buy(self):
+    def buy(self,perform):
         player = self.admin.acquire.state["players"][0]
         automatedPlayer = self.getPlayer(player.name)
-        automatedPlayer.buyShares(self.admin)
+        return automatedPlayer.buyShares(self.admin, perform)
+        
+    def treePlay(self,gameTree:GameTree):
+        res1 = self.place(False)
+        shares = self.buy(False)
+        if len(self.admin.banker.remaining_tiles) > 0:
+            val = self.admin.banker.remaining_tiles[0] 
+        else:
+            val = None
+        res = {"requestedShares":shares,"requestedNewTile":val}
+        if type(res1) != bool:
+            res["playerTile"] = res1["Tile"]
+            res["hotel"] = res1["hotel"]
+        status,_ = gameTree.traverse(self.admin,res)
+        if status:
+            self.place(True)
+            self.buy(True)
+    
         
         
     def getHotel(self, hotels, name):
@@ -82,10 +100,9 @@ class AutomatedDriver():
                     if num_of_tiles >= lower_range and num_of_tiles <= higher_range:
                         share_price = price
                 player.cash = player.cash + (share_price * count)
-                if player.cash >= maxCash:
-                    winner = player
+            if player.cash >= maxCash:
+                winner = player
                 maxCash = player.cash
-                
         return winner
                     
   
@@ -93,9 +110,9 @@ class AutomatedDriver():
 if __name__ =="__main__":
     for i in range(100):
         player1 = AutomatedPlayer("Jenil", "ordered")
-        player2 = AutomatedPlayer("Aditya", "ordered")
-        player3 = AutomatedPlayer("Police", "ordered")
-        player4 = AutomatedPlayer("Dab Dab", "ordered")
+        player2 = AutomatedPlayer("Aditya", "random")
+        player3 = AutomatedPlayer("Pranav", "smallest-anti")
+        player4 = AutomatedPlayer("Krishna", "largest-alpha")
         
         
         playerList = [player1, player2, player3, player4]
@@ -107,8 +124,9 @@ if __name__ =="__main__":
             if response[0]:
                 flag = False
             else:
-                driver.play()
-                driver.buy()
+                driver.admin.play()
+                driver.treePlay(driver.admin.gameTree)
 
         print(f'{driver.computeWinner().name} won the Game')
         print("Game Over!!!")
+        break

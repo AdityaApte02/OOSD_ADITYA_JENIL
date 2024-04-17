@@ -16,7 +16,7 @@ class AcquireGame(ABC):
 
 
     @abstractmethod
-    def buy(self, request)-> dict:
+    def buy_shares(self, request)-> dict:
         # Buys the share of the requested hotel chain
         pass
 

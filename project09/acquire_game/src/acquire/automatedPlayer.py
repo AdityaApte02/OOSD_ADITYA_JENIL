@@ -23,12 +23,12 @@ class AutomatedPlayer:
     def getName(self):
         return self.name
     
-    def playTile(self, admin):
+    def playTile(self, admin, perform):
         player = admin.acquire.state["players"][0]
-        return self.strategy.play(player, admin)
+        return self.strategy.play(player, admin, perform)
         
-    def buyShares(self, admin):
-        return self.strategy.buy(admin)
+    def buyShares(self, admin, perform):
+        return self.strategy.buy(admin, perform)
 
 
 if __name__ == "__main__":
